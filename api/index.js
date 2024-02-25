@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRouter from './routes/user.route.js';
 import authRouter from './routes/auth.route.js';
+import cookieParser from 'cookie-parser';
 
 dotenv.config();
 
@@ -12,6 +13,8 @@ mongoose.connect(process.env.MONGO).then(()=>{
 
 const app= express();
 app.use(express.json()); //allows to send json to the server
+
+app.use(cookieParser()); //used for checking the token inside the cookie in verifyUser.js
 
 
 app.listen(3000, ()=>{
