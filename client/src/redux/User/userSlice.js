@@ -23,9 +23,21 @@ const userSlice = createSlice({   //creating global state named 'user'.
             state.error=action.payload;
             state.loading=false;
         },
+        updateUserStart : (state) =>{
+            state.loading = true;
+        },
+        updateUserSuccess : (state,action) =>{
+            state.loading = false;
+            state.error = null;
+            state.currentUser = action.payload;
+        },
+        updateUserFailure : (state,action) =>{
+            state.error = action.payload;      //action,payload is the res received from the backend.
+            state.loading=false;
+        },
     },
 });
 
-export const {signInStart, signInSuccess, signInFailure} = userSlice.actions;
+export const {signInStart, signInSuccess, signInFailure,updateUserStart,updateUserSuccess,updateUserFailure} = userSlice.actions;
 // making it like the above three funcs are coming from the userSlice.actions
 export default userSlice.reducer;
