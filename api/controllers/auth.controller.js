@@ -56,3 +56,12 @@ export const google= async (req,res,next) =>{  //checking the google signed in u
         next(error) // to send the error
     }
 }
+
+export const signout = async (req,res,next) =>{
+    try {
+        res.clearCookie('access_token');
+        res.status(200).json('User has been logged out!'); // this response will be showed in network tab.
+    } catch (error) {
+        next(error)
+    }
+}

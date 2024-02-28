@@ -47,9 +47,21 @@ const userSlice = createSlice({   //creating global state named 'user'.
             state.loading=false;
             state.error=action.payload;
         },
+        signoutUserStart:(state)=>{
+            state.loading=true;
+        },
+        signoutUserSuccess:(state)=>{
+            state.loading=false;
+            state.currentUser = null;  
+            state.error = null;
+        },
+        signoutUserFailure:(state,action)=>{
+            state.loading=false;
+            state.error=action.payload;
+        },
     },
 });
 
-export const {signInStart, signInSuccess, signInFailure,updateUserStart,updateUserSuccess,updateUserFailure,deleteUserStart,deleteUserSuccess,deleteUserFailure} = userSlice.actions;
+export const {signInStart, signInSuccess, signInFailure,updateUserStart,updateUserSuccess,updateUserFailure,deleteUserStart,deleteUserSuccess,deleteUserFailure,signoutUserStart,signoutUserSuccess,signoutUserFailure} = userSlice.actions;
 // making it like the above three funcs are coming from the userSlice.actions
 export default userSlice.reducer;
