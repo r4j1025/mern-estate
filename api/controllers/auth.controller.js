@@ -1,7 +1,7 @@
 import User from "../models/user.model.js";
 import bcryptjs from 'bcryptjs';
 import { errorHandler } from "../utils/error.js";
-import  Jwt  from "jsonwebtoken";
+import  jwt  from "jsonwebtoken";
 
 export const signup = async (req,res,next)=>{
 const {username, email, password } = req.body;
@@ -22,7 +22,7 @@ export const signin = async (req,res,next)=>{
         if (!validUser) return next(errorHandler(404,"User not found!"));
         const validPassword = bcryptjs.compareSync(password,validUser.password);
         if (!validPassword) return next(errorHandler(401,'Wrong credentials!'));//JWT_SECRET is the salting key for hashing
-        const token = Jwt.sign({id:validUser._id},process.env.JWT_SECRET)//add info (here ._id is used) that is unique for the user.
+        const token = jwt.sign({id:validUser._id},process.env.JWT_SECRET)//add info (here ._id is used) that is unique for the user.
         const {password:pass,...rest}= validUser._doc; //destructuring password and rest of the other details for constructing json response
         res.cookie("access_token",token,{httpOnly:true}) // this cookie i'll be saved inside browser we can also add expire here
             .status(200)
@@ -35,7 +35,7 @@ export const google= async (req,res,next) =>{  //checking the google signed in u
     try {
         const user = await User.findOne({email:req.body.email})   // we are passing the email in the frontend
         if (user) {
-            const token =Jwt.sign({id: user._id},process.env.JWT_SECRET);
+            const token =jwt.sign({id: user._id},process.env.JWT_SECRET);
             const {password:pass,...rest}= user._doc; //destructuring password and rest of the other details for constructing json response
             res.cookie("access_token",token,{httpOnly:true}) // this cookie i'll be saved inside browser we can also add expire here
                 .status(200)
@@ -46,7 +46,7 @@ export const google= async (req,res,next) =>{  //checking the google signed in u
             const hashedPassword = bcryptjs.hashSync(generatedPassword,10);
             const newUser = new User({username:req.body.name.split(" ").join("").toLowerCase()+Math.random().toString(36).slice(-4) , email:req.body.email, password:hashedPassword, avatar : req.body.photo});
             await newUser.save();
-            const token =Jwt.sign({id: newUser._id},process.env.JWT_SECRET);
+            const token =jwt.sign({id: newUser._id},process.env.JWT_SECRET);
             const {password:pass, ...rest} = newUser._doc;
             res.cookie("access_token",token,{httpOnly:true}) // this cookie i'll be saved inside browser we can also add expire here
                 .status(200)
