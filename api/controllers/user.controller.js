@@ -58,6 +58,6 @@ export const getUserListings = async (req,res,next)=>{
             next(error)
         }
     }else{
-        return next(errorHandler(401,'forbidden'))
+        return next(errorHandler(401,'forbidden'));
     }
 }
