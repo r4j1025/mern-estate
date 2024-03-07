@@ -155,7 +155,7 @@ const Profile = () => {
 
       setUserListings((prev)=>prev.filter((listing)=> listing._id !== listingId))
     } catch (error) {
-      
+      console.log(error.message);
     }
   }
 
