@@ -13,7 +13,7 @@ export const verifyToken = (req,res,next) =>{
         next(); //sending the info to the next function "router.post('/update/:id',verifyToken,updateUser);"
         // which is 'updateUser' in the user.router.js.
 
-    })
+    });
 
 } 
 // user to verify if the user authenticated using the token inside the cookie.

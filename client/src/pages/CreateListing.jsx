@@ -26,7 +26,6 @@ const CreateListing = () => {
     const [uploading,setUploading] = useState(false);
     const [loading,setLoading] = useState(false);
     const {currentUser} = useSelector(state => state.user);
-    console.log(formData);
 
     const handleImgSubmit = (e) =>{
         if(files.length > 0 && files.length + formData.imageUrls.length < 7){
