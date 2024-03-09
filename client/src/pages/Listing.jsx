@@ -14,6 +14,7 @@ import {
   FaParking,
   FaShare,
 } from 'react-icons/fa';
+import Contact from '../components/Contact';
 
 
 const Listing = () => {
@@ -22,8 +23,9 @@ const Listing = () => {
     const [listing, setlisting] = useState(null);
     const [loading, setloading] = useState(false);
     const [error, seterror] = useState(false);
+    const [contact, setcontact] = useState(false);
     const [copied, setCopied] = useState(false);
-    const { currentUser } = useSelector((state) => state.user);
+    const { currentUser } = useSelector((state) => state.user); //here the currentUser must be destructured.
     useEffect(()=>{
         const fetchListing = async () =>{
             try {
@@ -125,6 +127,12 @@ const Listing = () => {
               {listing.furnished ? 'Furnished': 'Not Furnished' }
             </li>
           </ul>
+          {currentUser && listing.userRef !== currentUser._id && !contact && (
+            <button onClick={()=>setcontact(true)} className='bg-slate-700 text-white rounded-2xl p-3 uppercase hover:opacity-85'>Contact Owner</button>
+          )}
+          {contact && (
+            <Contact listing={listing}/>
+          )}
           </div>
             </div>
         )}
