@@ -5,7 +5,7 @@ import {MdLocationOn} from 'react-icons/md';
 
 const ListingItem = ({listing}) => {
   return (
-    <div className='bg-white w-full sm:w-[330px] shadow-md hover:shadow-lg rounded-lg overflow-hidden transition-shadow'>
+    <div className='bg-white shadow-md hover:shadow-lg transition-shadow overflow-hidden rounded-lg w-full sm:w-[330px]'>
         <Link to={`/listing/${listing._id}`}>
             <img className='h-[320px] sm:h-[220px] w-full object-cover hover:scale-105 transition-scale duration-300' src={listing.imageUrls[0] || "https://media.assettype.com/outlookbusiness%2F2023-10%2Fb0d05f17-546c-4c46-b85d-f7e1129068f4%2F10_Companies_That_Hire_for_Remote_Real_Estate_Jobs.jpg"} alt='listing cover' />
         <div className='p-3 flex flex-col gap-2 w-full'>
